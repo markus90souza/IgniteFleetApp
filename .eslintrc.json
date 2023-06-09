@@ -1,0 +1,9 @@
+{
+  "extends": "@rocketseat/eslint-config/react",
+  "rules": {
+    "no-empty-pattern": "off",
+    "camelcase": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off"
+  }
+}
