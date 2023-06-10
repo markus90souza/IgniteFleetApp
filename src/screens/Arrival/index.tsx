@@ -11,6 +11,8 @@ import {
 import { useRoute } from '@react-navigation/native'
 import { Header } from '@components/Header'
 import { Button } from '@components/Button'
+import { IconButton } from '@components/IconButton'
+import { X } from 'phosphor-react-native'
 
 interface ArrivalProps {}
 
@@ -39,6 +41,7 @@ export function Arrival() {
         </Description>
 
         <Footer>
+          <IconButton icon={X} />
           <Button title="Registrar Chegada" />
         </Footer>
       </Box>
