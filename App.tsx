@@ -1,5 +1,7 @@
+import 'react-native-get-random-values'
+
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { ThemeProvider, useTheme } from 'styled-components/native'
+import { ThemeProvider } from 'styled-components/native'
 
 import theme from '@theme/index'
 import { Loading } from '@components/Loading'
