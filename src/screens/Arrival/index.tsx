@@ -1,5 +1,3 @@
-import { Text } from 'react-native'
-
 import {
   Box,
   Container,
@@ -8,37 +6,53 @@ import {
   Label,
   LicencePlate,
 } from './styles'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { Header } from '@components/Header'
 import { Button } from '@components/Button'
 import { IconButton } from '@components/IconButton'
 import { X } from 'phosphor-react-native'
-
-interface ArrivalProps {}
+import { BSON } from 'realm'
+import { useObject, useRealm } from '@libs/realm'
+import { Historic } from '@libs/realm/schemas/historic'
+import { Alert } from 'react-native'
 
 type RouteParams = {
   id: string
 }
 
-export function Arrival() {
+export const Arrival = () => {
   const route = useRoute()
 
   const { id } = route.params as RouteParams
+
+  const { goBack } = useNavigation()
+  const historic = useObject(Historic, new BSON.UUID(id))
+  const realm = useRealm()
+  const handleRemoveVehicleUsage = () => {
+    Alert.alert('Cancelar', 'Cancelar a utilização do veiculo ?', [
+      { text: 'Não', style: 'cancel' },
+      { text: 'Sim', onPress: () => handleRemoveVehicle() },
+    ])
+  }
+
+  const handleRemoveVehicle = () => {
+    realm.write(() => {
+      realm.delete(historic)
+    })
+
+    goBack()
+  }
+
   return (
     <Container>
       <Header title="Chegada" />
 
       <Box>
         <Label>Placa do veiculo</Label>
-        <LicencePlate>JJE9392</LicencePlate>
+        <LicencePlate>{historic?.licence_plate}</LicencePlate>
 
         <Label>Finalidade</Label>
-        <Description>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur et
-          qui quas quam voluptate minima veritatis sed possimus quae magni eum
-          aperiam earum sapiente repudiandae est amet consequatur, doloribus
-          dolor!
-        </Description>
+        <Description>{historic?.description}</Description>
 
         <Footer>
           <IconButton icon={X} />

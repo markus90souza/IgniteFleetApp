@@ -6,18 +6,19 @@ import { Box, Container } from './styles'
 import { Header } from './components/Header'
 import { CarStatus } from './components/CarStatus'
 // NAVEGAÇÃO
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 // REALMDB
-import { useQuery } from '@libs/realm'
+import { useQuery, useRealm } from '@libs/realm'
 import { Historic } from '@libs/realm/schemas/historic'
 
 export function Home() {
   const [vehicleInUse, setVehicleInUse] = useState<Historic | null>(null)
   const { navigate } = useNavigation()
 
+  const realm = useRealm()
   const historic = useQuery(Historic)
 
-  const fetchVehicle = () => {
+  const fetchVehicleInUse = () => {
     try {
       const vehicle = historic.filtered("status = 'departure'")[0]
       setVehicleInUse(vehicle)
@@ -39,7 +40,9 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetchVehicle()
+    realm.addListener('change', () => fetchVehicleInUse())
+
+    return () => realm.removeListener('change', fetchVehicleInUse)
   }, [])
 
   return (

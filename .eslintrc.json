@@ -4,6 +4,7 @@
     "no-empty-pattern": "off",
     "camelcase": "off",
     "no-unused-vars": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
