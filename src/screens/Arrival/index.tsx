@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Box,
   Container,
@@ -43,6 +44,35 @@ export const Arrival = () => {
     goBack()
   }
 
+  const handleArrivalRegister = () => {
+    try {
+      if (!historic) {
+        return Alert.alert(
+          'Error',
+          'Não foi possivel obter os dados para registrar a chegada do veiculo',
+        )
+      }
+
+      realm.write(() => {
+        // eslint-disable-next-line no-unused-expressions
+        historic.status = 'arrival'
+        historic.updated_at = new Date()
+      })
+
+      Alert.alert(
+        'Chegada',
+        'Chegada registrada com sucesso',
+      )
+
+      goBack()
+
+    
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Error', 'Não foi possivel  registrar a chegada do veiculo')
+    }
+  }
+
   return (
     <Container>
       <Header title="Chegada" />
@@ -55,8 +85,8 @@ export const Arrival = () => {
         <Description>{historic?.description}</Description>
 
         <Footer>
-          <IconButton icon={X} />
-          <Button title="Registrar Chegada" />
+          <IconButton icon={X} onPress={handleRemoveVehicleUsage} />
+          <Button title="Registrar Chegada" onPress={handleArrivalRegister} />
         </Footer>
       </Box>
     </Container>

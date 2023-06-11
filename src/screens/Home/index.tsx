@@ -6,7 +6,7 @@ import { Box, Container } from './styles'
 import { Header } from './components/Header'
 import { CarStatus } from './components/CarStatus'
 // NAVEGAÇÃO
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 // REALMDB
 import { useQuery, useRealm } from '@libs/realm'
 import { Historic } from '@libs/realm/schemas/historic'
@@ -38,6 +38,10 @@ export function Home() {
       navigate('departure')
     }
   }
+
+  useEffect(() => {
+    fetchVehicleInUse()
+  }, [])
 
   useEffect(() => {
     realm.addListener('change', () => fetchVehicleInUse())
