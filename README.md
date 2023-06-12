@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Ignite Fleet" title="Ignite Fleet" src=".github/logo.svg" width="200px" height="200px" />
+    <img alt="Ignite Fleet" title="Ignite Fleet" src=".github/logo.svg" width="100px" height="100px" />
 </h1>
 
 <p align="center">
@@ -97,12 +97,6 @@ Feito com ♥ by Rocketseat :wave: [Participe da nossa comunidade!](https://disc
 </p>
 
 <!--END_SECTION:footer-->
-
-![image](https://user-images.githubusercontent.com/50504050/228393842-d5ebe930-d3ae-4fc8-a18a-f1d91a2b98e2.png)
-
-# Rocketseat Experience 2023 - Mobile App
-
-Repositório do app construído pela comunidade para o [maior evento de programação do Brasil](https://www.rocketseat.com.br/eventos/rsxp)! :brazil:
 
 ## Executando o projeto
 
