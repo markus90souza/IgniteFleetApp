@@ -50,7 +50,9 @@ Até o momento, levando em consideração o prazo de 2 semanas _(Due: 11/04/2023
 ### Funcionalidades 1.0 (MVP):
 
 - [ ] **Autenticação**
-      Autenticar o usuario usando uma conta google.
+
+  - Autenticar o usuario usando uma conta google.
+  - Buscar informações do usuario como nome e foto de perfil
 
 - [ ] **Visualizar meu ingresso**
       Uma vez que tenha o código localizador do ingresso emitido pelo Sympla, o usuário poderá conectar seu ingresso à sua conta no app e, dessa forma, terá acesso pelo app.

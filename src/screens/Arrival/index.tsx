@@ -66,6 +66,7 @@ export const Arrival = () => {
         historic.status = 'arrival'
         historic.updated_at = new Date()
       })
+      
 
       Alert.alert(
         'Chegada',
