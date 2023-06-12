@@ -1,4 +1,4 @@
-import { Car, KeyRound } from 'lucide-react-native'
+import { Car, Key } from 'phosphor-react-native'
 
 import { Container, IconBox, Message, TextHighlight } from './styles'
 import { useTheme } from 'styled-components'
@@ -9,7 +9,7 @@ interface CarStatusProps extends TouchableOpacityProps {
 }
 
 export function CarStatus({ lincencePlate = null, ...rest }: CarStatusProps) {
-  const Icon = lincencePlate ? Car : KeyRound
+  const Icon = lincencePlate ? Car : Key
 
   const message = lincencePlate
     ? `Veiculo ${lincencePlate} em uso. `
@@ -20,7 +20,7 @@ export function CarStatus({ lincencePlate = null, ...rest }: CarStatusProps) {
   return (
     <Container {...rest}>
       <IconBox>
-        <Icon size={32} color={COLORS.BRAND_LIGHT} />
+        <Icon size={52} color={COLORS.BRAND_LIGHT} />
       </IconBox>
 
       <Message style={{ textAlignVertical: 'center' }}>

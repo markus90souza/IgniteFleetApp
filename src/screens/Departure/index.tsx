@@ -4,20 +4,14 @@ import { Container, Box } from './styles'
 import { Header } from '@components/Header'
 import { TextArea } from '@components/TextArea'
 import { Button } from '@components/Button'
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TextInput,
-  Alert,
-} from 'react-native'
+import { ScrollView, TextInput, Alert } from 'react-native'
 import { lincencePlateValidate } from '@utils/licencePlateValidate'
 
 import { useUser } from '@realm/react'
 import { useRealm } from '@libs/realm'
 import { Historic } from '@libs/realm/schemas/historic'
 import { useNavigation } from '@react-navigation/native'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 export function Departure() {
   const descriptionRef = useRef<TextInput>(null)
   const licencePlateRef = useRef<TextInput>(null)
@@ -65,45 +59,38 @@ export function Departure() {
     }
   }
 
-  const keyboardAvoidingViewBehavior =
-    Platform.OS === 'android' ? 'height' : 'position'
   return (
     <Container>
       <Header title="Saída" />
 
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={keyboardAvoidingViewBehavior}
-      >
-        <ScrollView>
-          <Box>
-            <LicencePlateInput
-              ref={licencePlateRef}
-              label="Placa do veiculo"
-              placeholder="BRA0112"
-              onSubmitEditing={() => descriptionRef.current?.focus()}
-              returnKeyType="next"
-              onChangeText={setLicencePlate}
-            />
+      <KeyboardAwareScrollView extraHeight={100}>
+        <Box>
+          <LicencePlateInput
+            ref={licencePlateRef}
+            label="Placa do veiculo"
+            placeholder="BRA0112"
+            onSubmitEditing={() => descriptionRef.current?.focus()}
+            returnKeyType="next"
+            onChangeText={setLicencePlate}
+          />
 
-            <TextArea
-              ref={descriptionRef}
-              label="Finalidade"
-              placeholder="Vou utilizar o veiculo para..."
-              blurOnSubmit
-              returnKeyType="send"
-              onChangeText={setDescription}
-              onSubmitEditing={handleDepartureRegister}
-            />
+          <TextArea
+            ref={descriptionRef}
+            label="Finalidade"
+            placeholder="Vou utilizar o veiculo para..."
+            blurOnSubmit
+            returnKeyType="send"
+            onChangeText={setDescription}
+            onSubmitEditing={handleDepartureRegister}
+          />
 
-            <Button
-              title="Registrar Saída"
-              onPress={handleDepartureRegister}
-              isLoading={isRegistering}
-            />
-          </Box>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          <Button
+            title="Registrar Saída"
+            onPress={handleDepartureRegister}
+            isLoading={isRegistering}
+          />
+        </Box>
+      </KeyboardAwareScrollView>
     </Container>
   )
 }
