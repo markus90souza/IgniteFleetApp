@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Happy" title="Happy" src=".github/logo.svg" />
+    <img alt="Ignite Fleet" title="Ignite Fleet" src=".github/logo.svg" />
 </h1>
 
 <p align="center">
@@ -19,7 +19,7 @@
 <br>
 
 <p align="center">
-  <img alt="Happy" src=".github/happy.png" width="100%">
+  <img alt="Happy" src=".github/cover.png" width="100%">
 </p>
 
 ## Tecnologias
@@ -166,6 +166,8 @@ npm run ios
 # Caso esteja usando um dispositivo físico
 npm start
 ```
+
+### Extrutura de pastas e arquivos
 
 ```plainText
 Ignite Fleet
