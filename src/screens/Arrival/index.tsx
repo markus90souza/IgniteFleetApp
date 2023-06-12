@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
+  AsyncMessage,
   Box,
   Container,
   Description,
@@ -16,12 +17,16 @@ import { BSON } from 'realm'
 import { useObject, useRealm } from '@libs/realm'
 import { Historic } from '@libs/realm/schemas/historic'
 import { Alert } from 'react-native'
+import { useEffect, useState } from 'react'
+import { getLastSyncTimestamp } from '@libs/async-storage/sync-storage'
 
 type RouteParams = {
   id: string
 }
 
 export const Arrival = () => {
+
+  const [dataNotSynced, setDataNotSynced] = useState(false)
   const route = useRoute()
 
   const { id } = route.params as RouteParams
@@ -76,6 +81,19 @@ export const Arrival = () => {
     }
   }
 
+
+  const getSyncData = async () => {
+
+    const lastSync = await getLastSyncTimestamp()
+
+    setDataNotSynced(historic!.updated_at.getTime() > lastSync)
+    
+  }
+
+  useEffect(() => {
+    getSyncData()
+  },[])
+
   return (
     <Container>
       <Header title={title} />
@@ -90,7 +108,7 @@ export const Arrival = () => {
  
       </Box>
 
-      {
+        {
           historic?.status === 'departure' && (
             <Footer>
               <IconButton icon={X} onPress={handleRemoveVehicleUsage} />
@@ -98,6 +116,17 @@ export const Arrival = () => {
             </Footer>
           )
         }
+
+        {
+          dataNotSynced && <AsyncMessage>
+          Sicronização da 
+          {
+            historic?.status === 'departure' ? ' Partida ': ' Chegada '
+          }
+          pendente.
+        </AsyncMessage>
+        }
+        
     </Container>
   )
 }
