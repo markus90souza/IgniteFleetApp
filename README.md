@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Ignite Fleet" title="Ignite Fleet" src=".github/logo.svg" />
+    <img alt="Ignite Fleet" title="Ignite Fleet" src=".github/logo.svg" width="200px" height="200px" />
 </h1>
 
 <p align="center">
@@ -111,8 +111,12 @@ Abaixo seguem as instruções para você executar o projeto na sua máquina.
 Comece clonando o repositório e instalando suas dependências:
 
 ```sh
-git clone https://github.com/diego3g/rsxp-2023
-cd rsxp-2023
+git clone https://github.com/markus90souza/IgniteFleetApp
+
+cd IgniteFleetApp
+
+cp .env.example .env
+
 npm install
 ```
 
