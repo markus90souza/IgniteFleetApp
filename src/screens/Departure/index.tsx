@@ -19,6 +19,8 @@ import {
   useForegroundPermissions,
   watchPositionAsync,
 } from 'expo-location'
+import { getAddressLocation } from '@utils/getAddressLocation'
+import { Loading } from '@components/Loading'
 
 export function Departure() {
   const descriptionRef = useRef<TextInput>(null)
@@ -26,6 +28,8 @@ export function Departure() {
   const [description, setDescription] = useState('')
   const [licencePlate, setLicencePlate] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
+
+  const [isLoadingLocation, setIsLoadingLocation] = useState(true)
 
   const [permissionStatus, requestPermission] = useForegroundPermissions()
 
@@ -83,11 +87,17 @@ export function Departure() {
     watchPositionAsync(
       { accuracy: LocationAccuracy.High, timeInterval: 1000 },
       (position) => {
-        console.log(position)
+        getAddressLocation(position.coords)
+          .then((address) => {
+            console.log(address)
+          })
+          .finally(() => setIsLoadingLocation(false))
       },
     ).then((response) => (subscriber = response))
 
-    return () => subscriber.remove()
+    return () => {
+      subscriber.remove()
+    }
   }, [permissionStatus])
 
   if (!permissionStatus?.granted) {
@@ -102,6 +112,10 @@ export function Departure() {
         </Message>
       </Container>
     )
+  }
+
+  if (isLoadingLocation) {
+    return <Loading />
   }
 
   return (
