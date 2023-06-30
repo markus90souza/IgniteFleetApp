@@ -4,7 +4,7 @@ import { Container, Box, Message } from './styles'
 import { Header } from '@components/Header'
 import { TextArea } from '@components/TextArea'
 import { Button } from '@components/Button'
-import { TextInput, Alert } from 'react-native'
+import { TextInput, Alert, ScrollView } from 'react-native'
 import { lincencePlateValidate } from '@utils/licencePlateValidate'
 
 import { useUser } from '@realm/react'
@@ -21,6 +21,8 @@ import {
 } from 'expo-location'
 import { getAddressLocation } from '@utils/getAddressLocation'
 import { Loading } from '@components/Loading'
+import { LocationInfo } from '@components/LocationInfo'
+import { Car } from 'phosphor-react-native'
 
 export function Departure() {
   const descriptionRef = useRef<TextInput>(null)
@@ -32,7 +34,7 @@ export function Departure() {
   const [isLoadingLocation, setIsLoadingLocation] = useState(true)
 
   const [permissionStatus, requestPermission] = useForegroundPermissions()
-
+  const [currentAddress, setCurrentAddress] = useState<string | null>(null)
   const realm = useRealm()
   const user = useUser()
 
@@ -89,7 +91,9 @@ export function Departure() {
       (position) => {
         getAddressLocation(position.coords)
           .then((address) => {
-            console.log(address)
+            if (address) {
+              setCurrentAddress(address)
+            }
           })
           .finally(() => setIsLoadingLocation(false))
       },
@@ -123,32 +127,41 @@ export function Departure() {
       <Header title="Saída" />
 
       <KeyboardAwareScrollView extraHeight={100}>
-        <Box>
-          <LicencePlateInput
-            ref={licencePlateRef}
-            label="Placa do veiculo"
-            placeholder="BRA0112"
-            onSubmitEditing={() => descriptionRef.current?.focus()}
-            returnKeyType="next"
-            onChangeText={setLicencePlate}
-          />
+        <ScrollView>
+          <Box>
+            {currentAddress && (
+              <LocationInfo
+                label="Localização Atual"
+                description={currentAddress}
+                icon={Car}
+              />
+            )}
+            <LicencePlateInput
+              ref={licencePlateRef}
+              label="Placa do veiculo"
+              placeholder="BRA0112"
+              onSubmitEditing={() => descriptionRef.current?.focus()}
+              returnKeyType="next"
+              onChangeText={setLicencePlate}
+            />
 
-          <TextArea
-            ref={descriptionRef}
-            label="Finalidade"
-            placeholder="Vou utilizar o veiculo para..."
-            blurOnSubmit
-            returnKeyType="send"
-            onChangeText={setDescription}
-            onSubmitEditing={handleDepartureRegister}
-          />
+            <TextArea
+              ref={descriptionRef}
+              label="Finalidade"
+              placeholder="Vou utilizar o veiculo para..."
+              blurOnSubmit
+              returnKeyType="send"
+              onChangeText={setDescription}
+              onSubmitEditing={handleDepartureRegister}
+            />
 
-          <Button
-            title="Registrar Saída"
-            onPress={handleDepartureRegister}
-            isLoading={isRegistering}
-          />
-        </Box>
+            <Button
+              title="Registrar Saída"
+              onPress={handleDepartureRegister}
+              isLoading={isRegistering}
+            />
+          </Box>
+        </ScrollView>
       </KeyboardAwareScrollView>
     </Container>
   )
