@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LicencePlateInput } from '@components/LicencePlateInput'
-import { Container, Box } from './styles'
+import { Container, Box, Message } from './styles'
 import { Header } from '@components/Header'
 import { TextArea } from '@components/TextArea'
 import { Button } from '@components/Button'
-import { ScrollView, TextInput, Alert } from 'react-native'
+import { TextInput, Alert } from 'react-native'
 import { lincencePlateValidate } from '@utils/licencePlateValidate'
 
 import { useUser } from '@realm/react'
@@ -12,12 +12,22 @@ import { useRealm } from '@libs/realm'
 import { Historic } from '@libs/realm/schemas/historic'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import {
+  LocationAccuracy,
+  LocationSubscription,
+  useForegroundPermissions,
+  watchPositionAsync,
+} from 'expo-location'
+
 export function Departure() {
   const descriptionRef = useRef<TextInput>(null)
   const licencePlateRef = useRef<TextInput>(null)
   const [description, setDescription] = useState('')
   const [licencePlate, setLicencePlate] = useState('')
   const [isRegistering, setIsRegistering] = useState(false)
+
+  const [permissionStatus, requestPermission] = useForegroundPermissions()
 
   const realm = useRealm()
   const user = useUser()
@@ -57,6 +67,41 @@ export function Departure() {
       Alert.alert('Erro', 'Não foi possivel registrar a saída')
       setIsRegistering(false)
     }
+  }
+
+  useEffect(() => {
+    requestPermission()
+  }, [])
+
+  useEffect(() => {
+    if (!permissionStatus?.granted) {
+      return
+    }
+
+    let subscriber: LocationSubscription
+
+    watchPositionAsync(
+      { accuracy: LocationAccuracy.High, timeInterval: 1000 },
+      (position) => {
+        console.log(position)
+      },
+    ).then((response) => (subscriber = response))
+
+    return () => subscriber.remove()
+  }, [permissionStatus])
+
+  if (!permissionStatus?.granted) {
+    return (
+      <Container>
+        <Header title="Saida" />
+
+        <Message>
+          Você precisa permitir que o aplicativo tenha acesso a localização para
+          acessar essa funcionalidade. Por favor, acesse as configurações do seu
+          dispositivo para conceder a permissão ao aplicativo.
+        </Message>
+      </Container>
+    )
   }
 
   return (
