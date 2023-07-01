@@ -6,8 +6,8 @@
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-skills">Skills</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-funcionalidades">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licença">Licença</a>
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 <br>
 
 <p align="center">
-  <img alt="Happy" src=".github/cover.png" width="100%">
+  <img alt="Ignite Fleet" src=".github/cover.png" width="100%">
 </p>
 
 ## Tecnologias
@@ -44,6 +44,16 @@ saida,
 Nos links abaixo você encontra o layout do projeto web e também do mobile. Lembrando que você precisa ter uma conta no [Figma](http://figma.com/) para acessá-lo.
 
 - [Layout Mobile](<https://www.figma.com/file/JcISrx1oUFJm9UiKSXR39Q/Ignite-Fleet-(Community)>)
+
+## Skills
+
+- [ ] **Conhecimentos Aplicados**
+
+  - OAuth
+  - Padrões de projeto
+  - Offline first
+  - Mapas
+  - Design Patterns
 
 ## Funcionalidades 🚀
 
