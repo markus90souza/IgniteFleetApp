@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
-import { LicencePlateInput } from '@components/LicencePlateInput'
+
 import { Container, Box, Message } from './styles'
-import { Header } from '@components/Header'
-import { TextArea } from '@components/TextArea'
-import { Button } from '@components/Button'
+
+import {
+  Button,
+  Header,
+  TextArea,
+  LicencePlateInput,
+  Loading,
+  LocationInfo,
+  Map,
+} from '@components/index'
 import { TextInput, Alert, ScrollView } from 'react-native'
 import { lincencePlateValidate } from '@utils/licencePlateValidate'
 
@@ -15,13 +22,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import {
   LocationAccuracy,
+  LocationObjectCoords,
   LocationSubscription,
   useForegroundPermissions,
   watchPositionAsync,
 } from 'expo-location'
 import { getAddressLocation } from '@utils/getAddressLocation'
-import { Loading } from '@components/Loading'
-import { LocationInfo } from '@components/LocationInfo'
+
 import { Car } from 'phosphor-react-native'
 
 export function Departure() {
@@ -35,6 +42,8 @@ export function Departure() {
 
   const [permissionStatus, requestPermission] = useForegroundPermissions()
   const [currentAddress, setCurrentAddress] = useState<string | null>(null)
+  const [currentCoords, setCurrentCoords] =
+    useState<LocationObjectCoords | null>(null)
   const realm = useRealm()
   const user = useUser()
 
@@ -88,8 +97,9 @@ export function Departure() {
 
     watchPositionAsync(
       { accuracy: LocationAccuracy.High, timeInterval: 1000 },
-      (position) => {
-        getAddressLocation(position.coords)
+      (location) => {
+        setCurrentCoords(location.coords)
+        getAddressLocation(location.coords)
           .then((address) => {
             if (address) {
               setCurrentAddress(address)
@@ -128,6 +138,7 @@ export function Departure() {
 
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView>
+          {currentCoords && <Map coordinates={[currentCoords]} />}
           <Box>
             {currentAddress && (
               <LocationInfo

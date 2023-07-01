@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { AppRoutes } from './app.routes'
 import Toast from 'react-native-toast-message'
-import { TopMessage } from '@components/TopMessage'
+import { TopMessage } from '@components/index'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export const Routes = () => {
