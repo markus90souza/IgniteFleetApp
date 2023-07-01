@@ -32,20 +32,22 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Styled Components](https://styled-components.com/)
 - [Realm DB](https://realm.io/)
 - [Mongo DB Atlas](https://www.mongodb.com/atlas/database)
+- [Google - Maps e Autenticação ](https://console.cloud.google.com/)
 
 ## 💻 Projeto
 
-O Happy é uma aplicação que conecta pessoas à casas de acolhimento institucional para fazer o dia de muitas crianças mais feliz 💜
+O IgniteFleet é uma aplicação que registra o ponto de entrada de um veiculo e a
+saida,
 
 ## 🔖 Layout
 
 Nos links abaixo você encontra o layout do projeto web e também do mobile. Lembrando que você precisa ter uma conta no [Figma](http://figma.com/) para acessá-lo.
 
-- [Layout Mobile](https://www.figma.com/file/X27FfVxAgy9f5IFa7ONlph/Happy-Mobile)
+- [Layout Mobile](<https://www.figma.com/file/JcISrx1oUFJm9UiKSXR39Q/Ignite-Fleet-(Community)>)
 
 ## Funcionalidades 🚀
 
-Até o momento, levando em consideração o prazo de 2 semanas _(Due: 11/04/2023)_, listamos algumas funcionalidades básicas que devemos entregar. Caso sobre tempo, podemos trabalhar em funcionalidades secundárias, _backlog_.
+Algumas funcionalidades do sistema
 
 ### Funcionalidades 1.0 (MVP):
 
@@ -54,28 +56,17 @@ Até o momento, levando em consideração o prazo de 2 semanas _(Due: 11/04/2023
   - Autenticar o usuario usando uma conta google.
   - Buscar informações do usuario como nome e foto de perfil
 
-- [ ] **Visualizar meu ingresso**
-      Uma vez que tenha o código localizador do ingresso emitido pelo Sympla, o usuário poderá conectar seu ingresso à sua conta no app e, dessa forma, terá acesso pelo app.
+- [ ] **Veiculo | Entrada e Saida**
 
-- [ ] **Compartilhar ingresso nas redes sociais**
-      Como uma forma de hypar o evento, o usuário poderá gerar uma imagem - _thumbnail_ com sua foto para divulgar nas redes! `#VouNaRSXP! 🚀💜`
+  - Cadastrar placa do veiculo e descrição
+  - Registrar chegada do veiculo no ponto final
+  - Listar historico de Entrada e saida de veiculos
+  - Deletar Historico do veiculos
 
-### Funcionalidades 2.0:
+- [ ] **Sincronização de Informações - (Offline)**
 
-- [ ] **Autenticação**
-- [ ] **Sistema de convites**
-  - Desconto p/ convidar
-  - Brindes p/ quem mais convidar
-- [ ] **Countdown pro evento**
-- [ ] **Dados gerais do evento**
-  - Localização
-  - Data & Hora
-- [ ] **FAQ** - (_Frequently Asked Questions / Perguntas Frequentes_)
-
-- [ ] **Feed de notícias**
-      Criar algo tipo um Twitter interno para evento. Tal aba será dedicada aos palestrantes ou organizadores para enviar avisos para os membros.
-
-- [ ] **Lista dos palestrantes**
+  - Armazenar dados do veiculo no dispositivo do usuario
+  - Sincronizar dados com a base de dados remota
 
 ## Executando o projeto
 
@@ -96,7 +87,7 @@ npm install
 
 ### Mobile
 
-Para executar o app mobile do RS/XP utilizamos o Expo, uma ferramenta incrível da comunidade React Native. Além do Expo, é necessário que você utilize algum emulador local ou um dispositivo físico pra visualizar a aplicação.
+Para executar o app mobile do IgniteFleet utilizamos o Expo, uma ferramenta incrível da comunidade React Native. Além do Expo, é necessário que você utilize algum emulador local ou um dispositivo físico pra visualizar a aplicação.
 
 > Você pode instalar o Expo e os emuladores seguindo [esse guia](https://react-native.rocketseat.dev/).
 
@@ -104,10 +95,10 @@ Após configurar o ambiente mobile, você pode abrir o emulador e executar o pro
 
 ```sh
 # Caso esteja usando Android
-npm run android
+npx expo run:android
 
 # Caso esteja usando iOS
-npm run ios
+npx expo run:ios
 
 # Caso esteja usando um dispositivo físico
 npm start
